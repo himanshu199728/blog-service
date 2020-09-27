@@ -1,9 +1,20 @@
 const express = require('express');
-const dotenv = require('dotenv')
+const dotenv = require('dotenv');
+const {
+    authController,
+    contentController,
+    defaultController,
+    userController
+} = require('./src/controller');
+
 const app = express();
 // Initalise env variable with suitable value for local
 if (process.env.APP_ENV == 'local')
     dotenv.config();
+
+// Body parser
+app.use(express.json());
+app.use(express.urlencoded());
 
 //Signup
 app.post('/signup', () => true);
@@ -21,7 +32,10 @@ app.put('/content/:id/like', () => true);
 app.put('/content/:id/dislike', () => true);
 // Content save like API
 app.delete('/content/:id', () => true);
-
+// Get all content base on value of query param key=value
+app.get('/content', () => true);
+// Default handler
+app.all('/', defaultController);
 
 if (process.env.APP_ENV === 'local') {
     const PORT = process.env.PORT || 3600;
