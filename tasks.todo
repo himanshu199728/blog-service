@@ -1,0 +1,3 @@
+Blog service tasks:
+☐ Create entry points login, logout, post/like, post/dislike, post/unlike, post POST(save blog), post PUT(edit blog)
+☐ Create collections named user and content in mongo cluster.

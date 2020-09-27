@@ -1,0 +1,29 @@
+{
+  "name": "blog-service",
+  "version": "1.0.0",
+  "description": "Blog service",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/himanshu199728/blog-service.git"
+  },
+  "keywords": [
+    "Blog",
+    "Nodejs",
+    "Express",
+    "Task"
+  ],
+  "author": "Himanshu Joshi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/himanshu199728/blog-service/issues"
+  },
+  "homepage": "https://github.com/himanshu199728/blog-service#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1"
+  }
+}
