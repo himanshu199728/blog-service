@@ -1,3 +1,5 @@
 Blog service tasks:
-☐ Create entry points login, logout, post/like, post/dislike, post/unlike, post POST(save blog), post PUT(edit blog)
-☐ Create collections named user and content in mongo cluster.
+✔ Create entry points login, logout, post/like, post/dislike, post/unlike, post POST(save blog), post PUT(edit blog) @done (9/30/2020, 9:27:52 PM)
+✔ Create collections named user and content in mongo cluster. @done (9/30/2020, 9:27:48 PM)
+✔ Model, respository creation @done (9/30/2020, 9:28:27 PM)
+✔ Signup API created @done (9/30/2020, 9:28:07 PM)

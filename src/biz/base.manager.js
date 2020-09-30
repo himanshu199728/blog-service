@@ -53,6 +53,7 @@ class BaseManger {
             throw err;
         }
     }
+
 }
 
 module.exports = BaseManger;
