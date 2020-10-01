@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 class MongoHelper {
 
     static connect(uri) {
-        mongoose.connect(url, {
+        mongoose.connect(uri, {
             useCreateIndex: true,
             useNewUrlParser: true,
             useUnifiedTopology: true

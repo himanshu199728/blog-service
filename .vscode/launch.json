@@ -7,17 +7,16 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Mocha All",
-            "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
-            "args": [
-                "--timeout",
-                "999999",
-                "--colors",
-                "${workspaceFolder}/src/test/key-generate.test.js"
-            ],
+            "name": "Mocha Tests",
+            "timeout": 10000,
+            "program": "${workspaceRoot}/index.js",
             "envFile": "${workspaceFolder}/.env",
             "skipFiles": [
-                "<node_internals>/**/*.js"
+                "<node_internals>/**"
+            ],
+            "resolveSourceMapLocations": [
+                "${workspaceFolder}/**",
+                "!**/node_modules/**"
             ]
 
         }

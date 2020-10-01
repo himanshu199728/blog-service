@@ -11,16 +11,16 @@ const { checker } = require('./src/utils/checker');
 
 const app = express();
 // Initalise env variable with suitable value for local
-if (process.env.APP_ENV == 'local')
-    dotenv.config();
+dotenv.config();
 
+console.log(process.env.MONGO_URI);
 MongoHelper.connect(process.env.MONGO_URI);
 // Body parser
 app.use(express.json());
-app.use(express.urlencoded());
+// app.use(express.urlencoded());
 
 //Signup
-app.post('/signup', () => true);
+app.post('/signup', authController.signUp);
 // Login API
 app.post('/login', () => true);
 // Logout API

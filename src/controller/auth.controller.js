@@ -4,13 +4,12 @@ const AuthManager = require('../biz/auth.manager');
 
 class AuthController extends BaseController {
 
-    constructor() {
-        this.authManager = new AuthManager();
-    }
+    constructor() { super() }
 
     async signUp(req, res) {
         try {
-            const result = await this.authManager.signUp(req.body);
+            const authManager = new AuthManager();
+            const result = await authManager.signUp(req.body);
             super.ok(res, result);
         } catch (err) {
             super.error(res, err);

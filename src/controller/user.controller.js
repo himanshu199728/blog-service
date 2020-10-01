@@ -3,7 +3,7 @@ const BaseController = require('./base.controller');
 
 class UserController extends BaseController{
 
-    constructor(){}
+    constructor(){ super();}
 }
 
 module.exports = UserController;

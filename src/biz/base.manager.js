@@ -16,8 +16,8 @@ class BaseManger {
                 errors: ['Validation fail. Arguments should not be empty for validation']
             };
         }
-        const schema = fs.readFileSync(process.cwd + schemaPath, 'utf8').toString();
-        const result = this.validator.validate(data, schema);
+        const schema = fs.readFileSync(process.cwd() + schemaPath, { encoding: 'utf8' }).toString();
+        const result = this.validator.validate(data, JSON.parse(schema));
         const err = this.formatError(result);
         return err;
     }
@@ -46,11 +46,24 @@ class BaseManger {
 
     signUser(data) {
         try {
-            const privateKey = fs.readFileSync(`${process.cwd}./private.pem`, 'utf8').toString();
-            const token = jwt.sign(data, privateKey, { algorithm: "RS256" });
+            const privateKey = fs.readFileSync(process.cwd() + '/private.pem', { encoding: 'utf8' }).toString();
+            const token = jwt.sign(data,
+                { key: privateKey, passphrase: 'Commutec@123' },
+                { algorithm: "RS256" }
+            );
             return token;
         } catch (err) {
             throw err;
+        }
+    }
+
+    verifyUser(token) {
+        try {
+            const publicKey = fs.readFileSync(process.cwd() + '/public.pem', { encoding: 'utf8' }).toString();
+            const isValid = jwt.verify(token, { key: publicKey, passphrase: 'Commutec@123' });
+            return isValid;
+        } catch (error) {
+            throw error;
         }
     }
 

@@ -1,3 +1,24 @@
 {
-
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "http://vendor-owner.com/vo.json",
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+        "email_id",
+        "password"
+    ],
+    "properties": {
+        "email_id": {
+            "type": "string"
+        },
+        "password": {
+            "type": "string"
+        },
+        "age": {
+            "type": "number"
+        },
+        "name": {
+            "type": "string"
+        }
+    }
 }

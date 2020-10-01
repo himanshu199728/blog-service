@@ -2,7 +2,7 @@
 const BaseController = require('./base.controller');
 
 class ContentController extends BaseController {
-    constructor() { }
+    constructor() { super();}
 }
 
 module.exports = ContentController;
