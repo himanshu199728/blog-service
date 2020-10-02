@@ -16,7 +16,7 @@ describe('Should generate async cypher keys', () => {
                 type: 'pkcs8',
                 format: 'pem',
                 cipher: 'aes-256-cbc',
-                passphrase: 'Commutec@123'
+                passphrase: 'Blog-app@$#1'
             }
         });
         fs.writeFileSync('public.pem', publicKey);

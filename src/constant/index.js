@@ -4,5 +4,6 @@ module.exports = {
     STATUS: require('./status.constant'),
     SCHEMA: require('./schema.constant'),
     MSG: require('./msg.constant'),
-    REPOSITORY: require('./repository.constant')
+    REPOSITORY: require('./repository.constant'),
+    DEFAULT: require('./default.constant')
 }

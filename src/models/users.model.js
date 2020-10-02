@@ -8,6 +8,7 @@ const UserSchema = new Schema({
     password: { type: String, default: 'P1$1P' },
     name: { type: String, default: 'user' },
     age: { type: Number, default: null, max: 150, validate: { validator: Number.isInteger } },
+    token: { type: String, default: null },
     badge: { type: Object, default: { bronze: false, silver: false, gold: false, diamond: false, supreme: false } },
     is_deleted: { type: Boolean, default: false }
 });

@@ -9,3 +9,5 @@ class ValidationError extends Error {
         this.status = status;
     }
 }
+
+module.exports = ValidationError;

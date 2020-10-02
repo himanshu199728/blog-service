@@ -2,6 +2,7 @@
 const fs = require('fs');
 const Validator = require('jsonschema').Validator;
 const jwt = require('jsonwebtoken');
+const { DEFAULT } = require('../constant')
 
 class BaseManger {
 
@@ -48,7 +49,7 @@ class BaseManger {
         try {
             const privateKey = fs.readFileSync(process.cwd() + '/private.pem', { encoding: 'utf8' }).toString();
             const token = jwt.sign(data,
-                { key: privateKey, passphrase: 'Commutec@123' },
+                { key: privateKey, passphrase: DEFAULT.PASSPHASE },
                 { algorithm: "RS256" }
             );
             return token;
@@ -60,8 +61,15 @@ class BaseManger {
     verifyUser(token) {
         try {
             const publicKey = fs.readFileSync(process.cwd() + '/public.pem', { encoding: 'utf8' }).toString();
-            const isValid = jwt.verify(token, { key: publicKey, passphrase: 'Commutec@123' });
+            const isValid = jwt.verify(token, { key: publicKey, passphrase: DEFAULT.PASSPHASE });
             return isValid;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    scrapToken(token) {
+        try {
         } catch (error) {
             throw error;
         }

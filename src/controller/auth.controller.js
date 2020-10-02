@@ -16,8 +16,14 @@ class AuthController extends BaseController {
         }
     }
 
-    login() {
-
+    login(req, res) {
+        try {
+            const authManager = new AuthManager();
+            const result = await authManager.login(req);
+            super.ok(res, result);
+        } catch (err) {
+            super.error(res, err);
+        }
     }
 
     logout() {
