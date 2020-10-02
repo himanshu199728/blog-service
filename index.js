@@ -39,6 +39,8 @@ app.put('/user/:id', defaultLimiter, checker, userController.updateOne);
 app.get('/content', defaultLimiter, checker, () => true);
 // Content update API
 app.put('/content/:id', defaultLimiter, checker, () => true);
+// Content delete API
+app.delete('/content/:id', defaultLimiter, checker, () => true);
 // Content save like API
 app.put('/content/:id/comment', defaultLimiter, checker, () => true);
 // Content save upvote API

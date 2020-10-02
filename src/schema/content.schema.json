@@ -1,0 +1,29 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "http://schema-content.com/content.json",
+    "type": "object",
+    "additionalProperties": false,
+    "required": [],
+    "properties": {
+        "id": {
+            "type": "string"
+        },
+        "title": {
+            "type": "string"
+        },
+        "editor_name": {
+            "type": "number"
+        },
+        "body": {
+            "type": "string"
+        },
+        "views": {
+            "type": "integer",
+            "maximum": 15000,
+            "minimum": 0
+        },
+        "editor_id": {
+            "type": "string"
+        }
+    }
+}
