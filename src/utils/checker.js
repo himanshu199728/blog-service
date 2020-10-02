@@ -12,8 +12,11 @@ module.exports.checker = (req, res, next) => {
     const token = new Token(authorization);
 
     req.identity = {
-        email: token.content.email
+        emailId: token.content.email
     };
+    // if(token.content.email){
+    //     Users
+    // }
 
     if (token.isValid()) {
         res.status(STATUS.UNAUTHORIZED)
