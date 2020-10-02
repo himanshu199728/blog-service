@@ -1,42 +1,52 @@
 const express = require('express');
 const dotenv = require('dotenv');
+const MongoHelper = require('./mongo-helper');
+
 const {
     authController,
     contentController,
     defaultController,
     userController
 } = require('./src/controller');
-const MongoHelper = require('./mongo-helper');
-const { checker } = require('./src/utils/checker');
+const {
+    checker,
+    authLimiter,
+    defaultLimiter
+} = require('./src/utils/middleware');
 
 const app = express();
 // Initalise env variable with suitable value for local
 dotenv.config();
 
+
 console.log(process.env.MONGO_URI);
 MongoHelper.connect(process.env.MONGO_URI);
 // Body parser
 app.use(express.json());
-// app.use(express.urlencoded());
 
 //Signup
-app.post('/signup', authController.signUp);
+app.post('/signup', authLimiter, authController.signUp);
 // Login API
-app.post('/login', () => true);
+app.post('/login', authLimiter, authController.login);
 // Logout API
-app.post('/logout', () => true);
+app.post('/logout', authLimiter, authController.logout);
+
+// Get user
+app.post('/user/:id', defaultLimiter, checker, userController.findOne);
+// Update user
+app.put('/user/:id', defaultLimiter, checker, userController.updateOne);
 // Content save API
-app.post('/content', checker, () => true);
+app.get('/content', defaultLimiter, checker, () => true);
 // Content update API
-app.put('/content/:id', checker, () => true);
+app.put('/content/:id', defaultLimiter, checker, () => true);
 // Content save like API
-app.put('/content/:id/like', checker, () => true);
-// Content save dislike API
-app.put('/content/:id/dislike', checker, () => true);
-// Content save like API
-app.delete('/content/:id', checker, () => true);
+app.put('/content/:id/comment', defaultLimiter, checker, () => true);
+// Content save upvote API
+app.put('/content/:id/upvote', defaultLimiter, checker, () => true);
+// Content save  API
+app.delete('/content/:id', defaultLimiter, checker, () => true);
 // Get all content base on value of query param key=value
-app.get('/content', checker, () => true);
+app.get('/content', defaultLimiter, checker, () => true);
 // Default handler
 app.all('/', defaultController);
 

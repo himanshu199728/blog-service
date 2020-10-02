@@ -16,7 +16,7 @@ class AuthController extends BaseController {
         }
     }
 
-    login(req, res) {
+    async login(req, res) {
         try {
             const authManager = new AuthManager();
             const result = await authManager.login(req);
