@@ -1,5 +1,4 @@
 const { Schema, model } = require('mongoose')
-const { Users } = require('.');
 
 const CommentSchema = new Schema({
     id: { type: String, unique: true, index: true, required: true },

@@ -36,7 +36,6 @@ module.exports.authLimiter = rateLimit({
 });
 
 module.exports.defaultLimiter = rateLimit({
-    windowMs: 24 * 3600,
-    max: 50,
+    max: 1,
     message: 'Too many request to access or create acount. Please try after and hour'
 });

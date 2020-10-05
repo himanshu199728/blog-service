@@ -11,6 +11,21 @@ class ContentManager extends BaseManager {
         super();
     }
 
+    async findAll(req) {
+        try {
+            const contents = Contents.find({}).populate({
+                path: 'comments',
+                populate: {
+                    path: 'commenter',
+                    model: 'Users'
+                }
+            }).exec();
+            return contents;
+        } catch (error) {
+            throw error;
+        }
+    }
+
     async createOne(req) {
         try {
             const validationResult = super.validate(CONTENT_REQUEST, req.body)
@@ -21,6 +36,7 @@ class ContentManager extends BaseManager {
                 content.editor_name = req.body.editor_name;
                 content.body = req.body.body;
                 content.editor_id = req.body.editor_id;
+                content.is_deleted = true;
 
                 await Contents.create(content);
 
@@ -52,7 +68,7 @@ class ContentManager extends BaseManager {
         }
     }
 
-    deleteOne(req) {
+    async deleteOne(req) {
         try {
             const id = req.params.id;
             await Contents.deleteOne({ id }).exec();
@@ -67,7 +83,7 @@ class ContentManager extends BaseManager {
         }
     }
 
-    comment(req) {
+    async comment(req) {
         try {
             const contentId = req.params.id;
             const comment = {};
@@ -75,20 +91,42 @@ class ContentManager extends BaseManager {
             comment.content_id = contentId;
             comment.body = req.body.body;
 
-            const content = await Contents.findOne({ id: contentId }).exec();
-            const user = await Users.findOne({ id: content.editor_id }).exec();
+            const user = await Users.findOne({ id: req.body.commenter_id }).exec();
             comment.commenter = user;
 
-            await Comments.create(comment);
+            comment = await Comments.create(comment);
+            await Contents.findByIdAndUpdate({ id: contentId }, {
+                $push: {
+                    comments: comment
+                }
+            }).exec();
             return comment;
         } catch (error) {
             throw error;
         }
     }
 
-    upVote(req) {
+    async upVote(req) {
         try {
-
+            const contentId = req.params.id;
+            // User who upvoting
+            const commenterId = req.body.commenter_id;
+            await Contents.findByIdAndUpdate({ id: contentId }, {
+                $pull: {
+                    votes: commenterId
+                },
+                $push: {
+                    votes: commenterId
+                }
+            }).exec();
+            const content = await Contents.findOne({ id: contentId }).populate({
+                path: 'comments',
+                populate: {
+                    path: 'commenter',
+                    model: 'Users'
+                }
+            }).exec();
+            return exec();
         } catch (error) {
             throw error;
         }

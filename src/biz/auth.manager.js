@@ -10,14 +10,15 @@ class AuthManager extends BaseManager {
 
     constructor() { super(); }
 
-    async signUp(data) {
+    async signUp(req) {
         try {
-            const validationResult = super.validate(SCHEMA.USER_AUTH, data);
+            const validationResult = super.validate(SCHEMA.USER_AUTH_SIGNUP, req.body);
             if (validationResult.valid) {
-                const emailId = data.email_id;
-                const secretCode = data.password;
+                console.log(req.body)
+                const emailId = req.body.email_id;
+                const secretCode = req.body.password;
                 let user;
-                user = await UsersModel.findOne({ email: data.email_id, is_deleted: false });
+                user = await UsersModel.findOne({ email: emailId, is_deleted: false });
                 if (user) {
                     throw new RuleViolationError(MSG.USER_ALREADY_EXIST + emailId);
                 }
@@ -50,13 +51,13 @@ class AuthManager extends BaseManager {
         }
     }
 
-    async login(data) {
+    async login(req) {
         try {
-            const validationResult = super.validate(SCHEMA.USER_AUTH, data);
+            const validationResult = super.validate(SCHEMA.USER_AUTH_LOGIN, req.body);
             if (validationResult.valid) {
-                const emailId = data.body.email_id;
-                const secretCode = data.body.password;
-                const user = await UsersModel.findOne({ email: data.email_id, is_deleted: false }).exec();
+                const emailId = req.body.email_id;
+                const secretCode = req.body.password;
+                const user = await UsersModel.findOne({ email: emailId, is_deleted: false }).exec();
                 if (!user) {
                     throw new RuleViolationError(MSG.USER_NOT_FOUND + emailId);
                 }

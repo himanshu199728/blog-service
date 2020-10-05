@@ -8,7 +8,7 @@
         "id": {
             "type": "string"
         },
-        "title": {
+        "name": {
             "type": "string"
         },
         "editor_name": {

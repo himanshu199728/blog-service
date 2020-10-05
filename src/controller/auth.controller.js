@@ -9,7 +9,7 @@ class AuthController extends BaseController {
     async signUp(req, res) {
         try {
             const authManager = new AuthManager();
-            const result = await authManager.signUp(req.body);
+            const result = await authManager.signUp(req);
             super.ok(res, result);
         } catch (err) {
             super.error(res, err);
@@ -26,8 +26,14 @@ class AuthController extends BaseController {
         }
     }
 
-    logout() {
-
+    async logout() {
+        try {
+            const authManager = new AuthManager();
+            const result = await authManager.logout(req);
+            super.ok(res, result);
+        } catch (err) {
+            super.error(res, err);
+        }
     }
 }
 

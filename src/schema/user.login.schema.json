@@ -13,12 +13,6 @@
         },
         "password": {
             "type": "string"
-        },
-        "age": {
-            "type": "number"
-        },
-        "name": {
-            "type": "string"
         }
     }
 }
